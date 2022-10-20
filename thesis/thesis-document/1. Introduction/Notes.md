@@ -1,0 +1,24 @@
+As companies become more reliable on the data it produces to drive its decisions, a data warehouse is a core component when providing data for analysis and reporting. The data is extracted from one or more data sources, which can then be transformed and loaded into the appropriate format for consultation. 
+
+It is also well known that as companies become more data driven, the challenges associated with dealing with large volumes of data becomes more apparent as digital solutions start failing to respond, or are unable to respond within appropriate time constraints. 
+
+For this reason, when a company is facing these issues, a distributed architecture that resorts to microservices is a common and efficient way to tackle the problem as it simplifies scaling based on the system's needs, nullifies the single point of failure, and increases the system's resilience, when correctly implemented. 
+
+On the other hand, communication between microservices, when incorrectly implemented can become the bottleneck of the scalibility of a distributed solution, as the components can become too coupled and increase the technical cost of making any changes to the system. This is where message brokers come in. Instead of having the components communicating with one another directly, the message broker serves as an intermediary that asynchronously delivers the information between components as it is requested by the interested parts. When employing a message broker, two important entities involved in the communication are data producers (entities that send data to the broker), and data consumers (entities that request data from the broker). 
+
+The problem was proposed by the data engineering team at HUUB (MAERSK) that, due to the increasing load of data being produced to the message brokers, required a system capable of autoscaling based on the message broker's current load of data being produced, so as to have the data available in almost real-time constraints.
+
+The problem this thesis addresses is to dynamically determine and manage a group of consumers, that up- and down-scales the number of consumer instances, and manages the tasks associated with each instance, so as to achieve the required amount of parallelism to guarantee the number of unread message by the group does not increase. 
+
+Having used Kafka as the message broker system, the data produced is appended to a log commonly referred to as a partition, which in turn, is also where the consumer reads from when gathering records. The parallelism a consumer group can achieve is limited by the amount of partitions the group is to consume from, as there can be no more than one consumer from the same group consuming data from a partition.
+
+Modeling consumers as bins, and partitions as items that have to be assigned a bin, this problem was modeled as the Bin Packing Problem (BPP), with the particularity that the items vary in size with time. This occurs because the partition's size correlates to its current write speed, which fluctuates based on the current system's load and inevitably implies that a solution for a given time instant may not hold true in future instances. 
+
+On account of this variation of the BPP, a new solution has to be computed at each instant that might lead to a partition (item) being assigned to a different consumer (bin) when compared to the consumer group's previous configuration. Since two consumers cannot read from the same partition concurrently, the cost associated to rebalancing a partition is related to the amount of data that is not being read while the partition is being assigned to another consumer. Hence, in section \ref{} a new metric is proposed to determine the rebalance cost for a given iteration (Rscore). 
+
+Given that it is the first time the Bin Packing Problem is applied in this context, the existing algorithms do not take the rebalancing cost into account. For this reason four new algorithms are also proposed in section \ref{} that heuristically solve the Bin Packing Problem while taking the Rscore into account. 
+
+The algorithm's performance is compared in section \ref{}, and since the algorithms are attempting to solve a multi-objective problem that aims to minimize both the number of bins required and the rebalance cost for a single iteration, the pareto front shows that three of the proposed algorithms are a competitive solution to the problem at hand.
+
+Furthermore, to accomodate the aforementioned theoretical approach to solve the autoscaling problem, a system comprised of three components delivers an automated solution to scaling a consumer group, which is presented in chapter \ref{}. Each of the components is unitarily tested throughout sections \ref{} \ref{} \ref{}, and ultimately an integration test is also presented in chapter \ref{}, aimed to reflect the autoscaler's response time to the message broker's current load.
+
