@@ -1,0 +1,1 @@
+Git Rebase applies is a three way merge 

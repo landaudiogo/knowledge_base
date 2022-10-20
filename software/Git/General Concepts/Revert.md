@@ -1,5 +1,8 @@
 # Overview
 
+> Atlassian overview of the git revert command:
+> https://www.atlassian.com/git/tutorials/undoing-changes/git-revert
+
 Git revert is a command to undo changes. It differs from a reset or a checkout because it does not change where the pointer is in the commit history, the procedure in Layman terms is:
 
 After indicating which commit we want to revert, git figures out a way to undo the changes of that commit specifically, as long as it is in the branch's history. 
