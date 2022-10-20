@@ -13,14 +13,14 @@ In the second scenario, a new file structure is proposed to allow the Data Engin
 ## Failed Deserialization
 In case a message cannot be deserialized, this is where the consumer is sending the message to the bucket (utils.py):
 
-![[Pasted image 20220509154056.png]]
+![[evt_to_row.png]]
 
 Where the processes catches the exception, another function has to be called so the consumer can send the failed message to the dead letter queue, adding the topic string to the msg header.
 
 ## Failed Upload
 When the consumer fails to upload the bucket, this is where the csv is being sent to the bucket (bq_helper.py):
 
-![[Pasted image 20220509154512.png]]
+![[use_bucket.png]]
 
 1. Refactor the code
 2. Instead of sending the message to the bucket, send it to a folder specific to the topic the message was consumed from.
