@@ -115,7 +115,7 @@ Dynamic Bin Packing For Publish/Subscribe
 
 Converter imagens de svg para pdf: 
 https://stackoverflow.com/questions/1890215/getting-r-plots-into-latex
-![[Pasted image 20220512215525.png]]
+![[convert_to_pdf.png]]
 
 # Introdução
 
